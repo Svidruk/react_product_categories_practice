@@ -25,7 +25,6 @@ export const App = () => {
   const [query, setQuery] = useState('');
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [productsList] = useState(products);
-  const [sortColumn, setSortColumn] = useState(null);
 
   const filteredProducts = productsList.filter(({ user, name, category }) => {
     const matchesUser = !selectedUser || user.id === selectedUser.id;
@@ -53,42 +52,6 @@ export const App = () => {
         return [...prevCategories, categoryId];
       }
     });
-  };
-
-  const sortProducts = column => {
-    if (column !== sortColumn) {
-      setSortColumn(null);
-    }
-
-    const sortedProducts = [...filteredProducts];
-
-    sortedProducts.sort((a, b) => {
-      let comparison = 0;
-      switch (column) {
-        case 'id':
-          comparison = a.id - b.id;
-          break;
-        case 'name':
-          comparison = a.name.localeCompare(b.name);
-          break;
-        case 'category':
-          comparison = a.category.title.localeCompare(b.category.title);
-          break;
-        case 'user':
-          comparison = a.user.name.localeCompare(b.user.name);
-          break;
-        default:
-          break;
-      }
-
-      if (sortColumn === column) {
-        comparison = comparison * -1;
-      }
-
-      return comparison;
-    });
-
-    setSortColumn(column);
   };
 
   return (
