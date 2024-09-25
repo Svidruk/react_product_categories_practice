@@ -27,15 +27,15 @@ export const App = () => {
   const [productsList] = useState(products);
 
   const filteredProducts = productsList.filter(({ user, name, category }) => {
-    const matchesUser = !selectedUser || user.id === selectedUser.id;
-    const matchesQuery = name
+    const matchingUser = !selectedUser || user.id === selectedUser.id;
+    const normalizedQuery = name
       .toLowerCase()
       .includes(query.trim().toLowerCase());
-    const matchesCategory =
+    const matchingCategory =
       selectedCategories.length === 0 ||
       selectedCategories.includes(category.id);
 
-    return matchesUser && matchesQuery && matchesCategory;
+    return matchingUser && normalizedQuery && matchingCategory;
   });
 
   const handleResetAllFilters = () => {
